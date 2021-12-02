@@ -1,13 +1,13 @@
-﻿namespace FoodForHome.Data.Repositories
+﻿using System;
+using System.Linq;
+
+using FoodForHome.Data.Common.Models;
+using FoodForHome.Data.Common.Repositories;
+
+using Microsoft.EntityFrameworkCore;
+
+namespace FoodForHome.Data.Repositories
 {
-    using System;
-    using System.Linq;
-
-    using FoodForHome.Data.Common.Models;
-    using FoodForHome.Data.Common.Repositories;
-
-    using Microsoft.EntityFrameworkCore;
-
     public class EfDeletableEntityRepository<TEntity> : EfRepository<TEntity>, IDeletableEntityRepository<TEntity>
         where TEntity : class, IDeletableEntity
     {

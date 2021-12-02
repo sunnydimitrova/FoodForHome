@@ -1,11 +1,11 @@
-﻿namespace FoodForHome.Data
+﻿using System.Linq;
+
+using FoodForHome.Data.Common.Models;
+
+using Microsoft.EntityFrameworkCore;
+
+namespace FoodForHome.Data
 {
-    using System.Linq;
-
-    using FoodForHome.Data.Common.Models;
-
-    using Microsoft.EntityFrameworkCore;
-
     internal static class EntityIndexesConfiguration
     {
         public static void Configure(ModelBuilder modelBuilder)

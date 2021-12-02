@@ -1,10 +1,10 @@
-﻿namespace FoodForHome.Web.Areas.Administration.Controllers
+﻿using FoodForHome.Services.Data;
+using FoodForHome.Web.ViewModels.Administration.Dashboard;
+
+using Microsoft.AspNetCore.Mvc;
+
+namespace FoodForHome.Web.Areas.Administration.Controllers
 {
-    using FoodForHome.Services.Data;
-    using FoodForHome.Web.ViewModels.Administration.Dashboard;
-
-    using Microsoft.AspNetCore.Mvc;
-
     public class DashboardController : AdministrationController
     {
         private readonly ISettingsService settingsService;

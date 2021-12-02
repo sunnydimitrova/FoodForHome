@@ -1,11 +1,11 @@
-﻿namespace FoodForHome.Web.Controllers
+﻿using System.Diagnostics;
+
+using FoodForHome.Web.ViewModels;
+
+using Microsoft.AspNetCore.Mvc;
+
+namespace FoodForHome.Web.Controllers
 {
-    using System.Diagnostics;
-
-    using FoodForHome.Web.ViewModels;
-
-    using Microsoft.AspNetCore.Mvc;
-
     public class HomeController : BaseController
     {
         public IActionResult Index()

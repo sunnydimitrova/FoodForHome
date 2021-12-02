@@ -1,7 +1,7 @@
-﻿namespace FoodForHome.Services.Data
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace FoodForHome.Services.Data
+{
     public interface ISettingsService
     {
         int GetCount();

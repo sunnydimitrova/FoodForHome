@@ -1,27 +1,27 @@
-﻿namespace FoodForHome.Web
+﻿using System.Reflection;
+
+using FoodForHome.Data;
+using FoodForHome.Data.Common;
+using FoodForHome.Data.Common.Repositories;
+using FoodForHome.Data.Models;
+using FoodForHome.Data.Repositories;
+using FoodForHome.Data.Seeding;
+using FoodForHome.Services.Data;
+using FoodForHome.Services.Mapping;
+using FoodForHome.Services.Messaging;
+using FoodForHome.Web.ViewModels;
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+namespace FoodForHome.Web
 {
-    using System.Reflection;
-
-    using FoodForHome.Data;
-    using FoodForHome.Data.Common;
-    using FoodForHome.Data.Common.Repositories;
-    using FoodForHome.Data.Models;
-    using FoodForHome.Data.Repositories;
-    using FoodForHome.Data.Seeding;
-    using FoodForHome.Services.Data;
-    using FoodForHome.Services.Mapping;
-    using FoodForHome.Services.Messaging;
-    using FoodForHome.Web.ViewModels;
-
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-
     public class Startup
     {
         private readonly IConfiguration configuration;
@@ -65,6 +65,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

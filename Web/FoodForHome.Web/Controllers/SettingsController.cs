@@ -1,15 +1,15 @@
-﻿namespace FoodForHome.Web.Controllers
+﻿using System;
+using System.Threading.Tasks;
+
+using FoodForHome.Data.Common.Repositories;
+using FoodForHome.Data.Models;
+using FoodForHome.Services.Data;
+using FoodForHome.Web.ViewModels.Settings;
+
+using Microsoft.AspNetCore.Mvc;
+
+namespace FoodForHome.Web.Controllers
 {
-    using System;
-    using System.Threading.Tasks;
-
-    using FoodForHome.Data.Common.Repositories;
-    using FoodForHome.Data.Models;
-    using FoodForHome.Services.Data;
-    using FoodForHome.Web.ViewModels.Settings;
-
-    using Microsoft.AspNetCore.Mvc;
-
     public class SettingsController : BaseController
     {
         private readonly ISettingsService settingsService;

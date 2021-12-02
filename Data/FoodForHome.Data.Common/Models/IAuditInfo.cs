@@ -1,7 +1,7 @@
-﻿namespace FoodForHome.Data.Common.Models
-{
-    using System;
+﻿using System;
 
+namespace FoodForHome.Data.Common.Models
+{
     public interface IAuditInfo
     {
         DateTime CreatedOn { get; set; }

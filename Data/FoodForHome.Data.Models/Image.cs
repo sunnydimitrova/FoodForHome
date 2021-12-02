@@ -1,11 +1,11 @@
-﻿namespace FoodForHome.Data.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+using FoodForHome.Data.Common.Models;
+
+namespace FoodForHome.Data.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
-    using FoodForHome.Data.Common.Models;
-
     public class Image : BaseModel<string>
     {
         public Image()

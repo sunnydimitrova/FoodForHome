@@ -1,7 +1,7 @@
-﻿namespace FoodForHome.Web.Controllers
-{
-    using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
+namespace FoodForHome.Web.Controllers
+{
     public class BaseController : Controller
     {
     }

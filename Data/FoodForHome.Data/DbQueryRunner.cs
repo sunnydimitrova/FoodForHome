@@ -1,12 +1,12 @@
-﻿namespace FoodForHome.Data
+﻿using System;
+using System.Threading.Tasks;
+
+using FoodForHome.Data.Common;
+
+using Microsoft.EntityFrameworkCore;
+
+namespace FoodForHome.Data
 {
-    using System;
-    using System.Threading.Tasks;
-
-    using FoodForHome.Data.Common;
-
-    using Microsoft.EntityFrameworkCore;
-
     public class DbQueryRunner : IDbQueryRunner
     {
         public DbQueryRunner(ApplicationDbContext context)

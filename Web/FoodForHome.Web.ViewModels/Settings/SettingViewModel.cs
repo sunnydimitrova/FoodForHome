@@ -1,10 +1,10 @@
-﻿namespace FoodForHome.Web.ViewModels.Settings
+﻿using FoodForHome.Data.Models;
+using FoodForHome.Services.Mapping;
+
+using AutoMapper;
+
+namespace FoodForHome.Web.ViewModels.Settings
 {
-    using FoodForHome.Data.Models;
-    using FoodForHome.Services.Mapping;
-
-    using AutoMapper;
-
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {
         public int Id { get; set; }

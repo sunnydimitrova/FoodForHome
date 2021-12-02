@@ -1,12 +1,12 @@
-﻿namespace FoodForHome.Services.Data
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using FoodForHome.Data.Common.Repositories;
+using FoodForHome.Data.Models;
+using FoodForHome.Services.Mapping;
+
+namespace FoodForHome.Services.Data
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using FoodForHome.Data.Common.Repositories;
-    using FoodForHome.Data.Models;
-    using FoodForHome.Services.Mapping;
-
     public class SettingsService : ISettingsService
     {
         private readonly IDeletableEntityRepository<Setting> settingsRepository;

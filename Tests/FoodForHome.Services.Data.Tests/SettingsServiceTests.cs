@@ -1,20 +1,20 @@
-﻿namespace FoodForHome.Services.Data.Tests
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+using FoodForHome.Data;
+using FoodForHome.Data.Common.Repositories;
+using FoodForHome.Data.Models;
+using FoodForHome.Data.Repositories;
+
+using Microsoft.EntityFrameworkCore;
+
+using Moq;
+
+using Xunit;
+
+namespace FoodForHome.Services.Data.Tests
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using FoodForHome.Data;
-    using FoodForHome.Data.Common.Repositories;
-    using FoodForHome.Data.Models;
-    using FoodForHome.Data.Repositories;
-
-    using Microsoft.EntityFrameworkCore;
-
-    using Moq;
-
-    using Xunit;
-
     public class SettingsServiceTests
     {
         [Fact]

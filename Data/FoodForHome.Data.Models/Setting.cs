@@ -1,7 +1,7 @@
-﻿namespace FoodForHome.Data.Models
-{
-    using FoodForHome.Data.Common.Models;
+﻿using FoodForHome.Data.Common.Models;
 
+namespace FoodForHome.Data.Models
+{
     public class Setting : BaseDeletableModel<int>
     {
         public string Name { get; set; }

@@ -1,13 +1,13 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
+using System;
+using System.Collections.Generic;
+
+using FoodForHome.Data.Common.Models;
+
+using Microsoft.AspNetCore.Identity;
+
 namespace FoodForHome.Data.Models
 {
-    using System;
-    using System.Collections.Generic;
-
-    using FoodForHome.Data.Common.Models;
-
-    using Microsoft.AspNetCore.Identity;
-
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
         public ApplicationUser()

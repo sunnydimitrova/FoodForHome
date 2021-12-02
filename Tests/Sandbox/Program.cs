@@ -1,26 +1,26 @@
-﻿namespace Sandbox
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading.Tasks;
+
+using FoodForHome.Data;
+using FoodForHome.Data.Common;
+using FoodForHome.Data.Common.Repositories;
+using FoodForHome.Data.Models;
+using FoodForHome.Data.Repositories;
+using FoodForHome.Data.Seeding;
+using FoodForHome.Services.Data;
+using FoodForHome.Services.Messaging;
+
+using CommandLine;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+namespace Sandbox
 {
-    using System;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Threading.Tasks;
-
-    using FoodForHome.Data;
-    using FoodForHome.Data.Common;
-    using FoodForHome.Data.Common.Repositories;
-    using FoodForHome.Data.Models;
-    using FoodForHome.Data.Repositories;
-    using FoodForHome.Data.Seeding;
-    using FoodForHome.Services.Data;
-    using FoodForHome.Services.Messaging;
-
-    using CommandLine;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-
     public static class Program
     {
         public static int Main(string[] args)

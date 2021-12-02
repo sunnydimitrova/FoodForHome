@@ -1,17 +1,17 @@
-﻿namespace FoodForHome.Data
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+
+using FoodForHome.Data.Common.Models;
+using FoodForHome.Data.Models;
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace FoodForHome.Data
 {
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using FoodForHome.Data.Common.Models;
-    using FoodForHome.Data.Models;
-
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore;
-
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         private static readonly MethodInfo SetIsDeletedQueryFilterMethod =
