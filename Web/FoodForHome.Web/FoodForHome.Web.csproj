@@ -36,4 +36,10 @@
     <ProjectReference Include="..\FoodForHome.Web.Infrastructure\FoodForHome.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\FoodForHome.Web.ViewModels\FoodForHome.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\dishPage.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

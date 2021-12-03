@@ -1,5 +1,6 @@
 ﻿using FoodForHome.Data.Common.Repositories;
 using FoodForHome.Data.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace FoodForHome.Services.Data
             this.categoriesRepository = categoriesRepository;
         }
 
-        public IEnumerable<KeyValuePair<string, string>> GetCategoriesAsKeyValuePair()
+        public IEnumerable<SelectListItem> GetCategories()
         {
             return this.categoriesRepository.AllAsNoTracking()
                 .Select(x => new
@@ -24,9 +25,21 @@ namespace FoodForHome.Services.Data
                     x.Id,
                     x.Name,
                 })
-                .OrderBy(x => x.Id)
                 .ToList()
-                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
+                .Select(x => new SelectListItem(x.Name, x.Id.ToString()));
         }
+
+        //public IEnumerable<KeyValuePair<string, string>> GetCategoriesAsKeyValuePair()
+        //{
+        //    return this.categoriesRepository.AllAsNoTracking()
+        //        .Select(x => new
+        //        {
+        //            x.Id,
+        //            x.Name,
+        //        })
+        //        .OrderBy(x => x.Id)
+        //        .ToList()
+        //        .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
+        //}
     }
 }

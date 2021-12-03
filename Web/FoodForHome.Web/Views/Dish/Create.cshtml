@@ -1,47 +1,49 @@
 ﻿@model FoodForHome.Web.ViewModels.Dish.CreateDishInputModel
 @{
     ViewData["Title"] = "Create new dish";
-    //var categoryItems = this.Model.Categories.Select(x => new SelectListItem(x.Value, x.Key));
 }
-<form method="post" class="col-md-6 offset-md-3"
-      enctype="multipart/form-data">
-    <h1>Create new dish</h1>
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
+
+<link href="~/css/dishPage.css" rel="stylesheet" />
+
+<h1>@ViewData["Title"]</h1>
+<form method="post" class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="Name" class="form-label">Dish Name<span class="text-danger">*</span></label>
+        <input asp-for="Name" class="form-control" id="dishName">
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Gram"></label>
-        <input asp-for="Gram" class="form-control" />
+    <div class="col-md-6">
+        <label asp-for="Gram" class="form-label">Gram<span class="text-danger">*</span></label>
+        <input asp-for="Gram" class="form-control" id="gram">
         <span asp-validation-for="Gram" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
+    <div class="col-12">
+        <label asp-for="Ingredients" class="form-label">Ingredients<span class="text-danger">*</span> (ingredient1, ingredient2, ingredient3)</label>
+        <input asp-for="Ingredients" class="form-control" id="ingridients" placeholder="cream, bananna, ...">
+        <span asp-validation-for="Ingredients" class="text-danger"></span>
     </div>
-    @*<div class="form-group">
-        <label asp-for="CategoryId"></label>
-        <select asp-for="CategoryId" class="form-control" asp-items="categoryItems"></select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
-    </div>*@
-    <div class="form-group">
-        <label asp-for="ImageUrl"></label>
-        <input asp-for="ImageUrl" class="form-control" />
+    <div class="col-12">
+        <label asp-for="ImageUrl" class="form-label">Image Url</label>
+        <input asp-for="ImageUrl" class="form-control" id="imageUrl" placeholder="https://images.app.goo.gl/Dny27U559eczBdLN8">
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Images"></label>
-        <input asp-for="Images" class="form-control" />
+    <div class="col-md-3">
+        <label asp-for="CategoryId" class="form-label">Category<span class="text-danger">*</span></label>
+        <select asp-for="CategoryId" asp-items="Model.Categories" id="caregory" class="form-select">
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label asp-for="Price" class="form-label">Price<span class="text-danger">*</span></label>
+        <input type="number" asp-for="Price" class="form-control" id="price">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Images" class="form-label">Images</label>
+        <input asp-for="Images" class="form-control" id="images">
         <span asp-validation-for="Images" class="text-danger"></span>
     </div>
-    <div id="IngredientsContainer">
-        <label asp-for="Ingredients"></label>
-        <a class="btn btn-success" onclick="AddMoreIngredients()">+</a>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Create Dish</button>
     </div>
-    <input type="submit" class="btn btn-primary" />
 </form>
-
 

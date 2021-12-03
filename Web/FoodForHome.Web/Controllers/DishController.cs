@@ -23,8 +23,8 @@
         public IActionResult Create()
         {
             var viewModel = new CreateDishInputModel();
-            viewModel.Categories = this.categoriesService.GetCategoriesAsKeyValuePair();
-            return this.View();
+            viewModel.Categories = this.categoriesService.GetCategories();
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -33,7 +33,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                input.Categories = this.categoriesService.GetCategoriesAsKeyValuePair();
+                input.Categories = this.categoriesService.GetCategories();
                 return this.View(input);
             }
 

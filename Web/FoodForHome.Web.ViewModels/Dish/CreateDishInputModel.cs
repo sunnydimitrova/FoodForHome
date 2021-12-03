@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace FoodForHome.Web.ViewModels.Dish
 {
@@ -13,13 +15,16 @@ namespace FoodForHome.Web.ViewModels.Dish
         [MaxLength(25)]
         public string Name { get; set; }
 
-        [Required]
         [Range(10, 2000)]
         public int Gram { get; set; }
 
-        [Required]
-        [Range(1.00, 500.00)]
+        [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Invalid Target Price; Maximum Two Decimal Points.")]
+        [Range(0, 9999999999999999.99, ErrorMessage = "Invalid Target Price; Max 18 digits")]
         public decimal Price { get; set; }
+
+        [Required]
+        [RegularExpression(@"^([a-zA-Z]+\,{1}\s{1})+[a-zA-Z]+$", ErrorMessage = "The ingredients must be in the format described in brackets above")]
+        public string Ingredients { get; set; }
 
         public int CategoryId { get; set; }
 
@@ -28,8 +33,6 @@ namespace FoodForHome.Web.ViewModels.Dish
 
         public IEnumerable<IFormFile> Images { get; set; }
 
-        public IEnumerable<KeyValuePair<string, string>> Categories { get; set; }
-
-        public virtual IEnumerable<IngredientInputModel> Ingredients { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
     }
 }
