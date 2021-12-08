@@ -27,7 +27,6 @@ namespace FoodForHome.Services.Data
 
         public async Task CreateAsync(CreateDishInputModel input, string imgPath)
         {
-            //var ingredientsList = input.Ingredients.Split(", ").ToList();
             var price = decimal.Parse(input.Price, CultureInfo.InvariantCulture);
 
             var dish = new Dish
