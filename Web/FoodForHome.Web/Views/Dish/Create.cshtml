@@ -5,8 +5,8 @@
 
 <link href="~/css/dishPage.css" rel="stylesheet" />
 
-<h1>@ViewData["Title"]</h1>
-<form method="post" class="row g-3" enctype="multipart/form-data">
+<h2>@ViewData["Title"]</h2>
+<form method="post" class="row g-3 box-shadow" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger col-12"></div>
     <div class="col-md-6">
         <label asp-for="Name" class="form-label">Dish Name<span class="text-danger">*</span></label>
@@ -25,7 +25,7 @@
         <input type="text" name="Ingredients[0].Name" class="form-control">
         <span asp-validation-for="Ingredients" class="text-danger"></span>
     </div>
-    <div class="col-12">
+    <div class="col-12 img-url">
         <label asp-for="ImageUrl" class="form-label">Image Url</label>
         <input asp-for="ImageUrl" class="form-control" id="imageUrl" placeholder="https://images.app.goo.gl/Dny27U559eczBdLN8">
         <span asp-validation-for="ImageUrl" class="text-danger"></span>

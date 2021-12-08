@@ -1,5 +1,6 @@
 ﻿using FoodForHome.Data.Common.Repositories;
 using FoodForHome.Data.Models;
+using FoodForHome.Services.Mapping;
 using FoodForHome.Web.ViewModels.Dishes;
 using System;
 using System.Collections.Generic;
@@ -75,6 +76,15 @@ namespace FoodForHome.Services.Data
 
             await this.dishRepository.AddAsync(dish);
             await this.dishRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            var dishes = this.dishRepository.AllAsNoTracking()
+                .OrderBy(x => x.CategoryId)
+                .To<T>().ToList();
+
+            return dishes;
         }
     }
 }

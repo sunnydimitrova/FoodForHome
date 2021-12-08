@@ -11,3 +11,21 @@ form.row.md-3 {
     padding-bottom: 15px;
     padding-top: 30px;
 }
+
+.img-url {
+    padding-bottom: 15px;
+}
+
+label, h2 {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+label {
+    font-size: 18px;
+}
+
+.box-shadow {
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}

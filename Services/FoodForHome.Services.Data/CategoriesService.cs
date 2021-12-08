@@ -1,5 +1,6 @@
 ﻿using FoodForHome.Data.Common.Repositories;
 using FoodForHome.Data.Models;
+using FoodForHome.Services.Mapping;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -28,5 +29,15 @@ namespace FoodForHome.Services.Data
                 .ToList()
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()));
         }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            var categories = this.categoriesRepository.AllAsNoTracking()
+                .OrderBy(x => x.Id)
+                .To<T>().ToList();
+
+            return categories;
+        }
+
     }
 }

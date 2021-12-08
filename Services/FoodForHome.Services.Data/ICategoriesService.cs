@@ -8,5 +8,7 @@ namespace FoodForHome.Services.Data
     public interface ICategoriesService
     {
         IEnumerable<SelectListItem> GetCategories();
+
+        IEnumerable<T> GetAll<T>();
     }
 }
