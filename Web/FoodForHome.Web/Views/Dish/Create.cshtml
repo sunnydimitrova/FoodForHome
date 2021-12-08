@@ -1,4 +1,4 @@
-﻿@model FoodForHome.Web.ViewModels.Dish.CreateDishInputModel
+﻿@model FoodForHome.Web.ViewModels.Dishes.CreateDishInputModel
 @{
     ViewData["Title"] = "Create new dish";
 }
@@ -6,7 +6,8 @@
 <link href="~/css/dishPage.css" rel="stylesheet" />
 
 <h1>@ViewData["Title"]</h1>
-<form method="post" class="row g-3">
+<form method="post" class="row g-3" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger col-12"></div>
     <div class="col-md-6">
         <label asp-for="Name" class="form-label">Dish Name<span class="text-danger">*</span></label>
         <input asp-for="Name" class="form-control" id="dishName">
@@ -17,10 +18,21 @@
         <input asp-for="Gram" class="form-control" id="gram">
         <span asp-validation-for="Gram" class="text-danger"></span>
     </div>
-    <div class="col-12">
-        <label asp-for="Ingredients" class="form-label">Ingredients<span class="text-danger">*</span> (ingredient1, ingredient2, ingredient3)</label>
-        <input asp-for="Ingredients" class="form-control" id="ingridients" placeholder="cream, bananna, ...">
+    <div id="ingredients" class="input-group col-12">
+        <div class="input-group-prepend">
+            <label asp-for="Ingredients" class="input-group-text" id="more-ingredients" onclick="AddMoreIngredients()">Ingredients</label>
+        </div>
+        <input type="text" name="Ingredients[0].Name" class="form-control">
+        @*<input type="text" name="Ingredients[1].Name" class="form-control">*@
+        @*<input asp-for="Ingredients" type="text" class="form-control">
+            <input asp-for="Ingredients" type="text" class="form-control">S
+            <input asp-for="Ingredients" type="text" class="form-control">
+            <input asp-for="Ingredients" type="text" class="form-control">
+            <input asp-for="Ingredients" type="text" class="form-control">
+            <input asp-for="Ingredients" type="text" class="form-control">
+            <input asp-for="Ingredients" type="text" class="form-control">*@
         <span asp-validation-for="Ingredients" class="text-danger"></span>
+        @*<input asp-for="Ingredients" type="text" class="form-control">*@
     </div>
     <div class="col-12">
         <label asp-for="ImageUrl" class="form-label">Image Url</label>
@@ -46,4 +58,16 @@
         <button type="submit" class="btn btn-primary">Create Dish</button>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        var ingredientIndex = 1;
+        function AddMoreIngredients() {
+            $("#ingredients").
+                append("<input type='text' name='Ingredients["+ ingredientIndex +"].Name' class='form-control'>");
+            ingredientIndex++;
+        }
+    </script>
+   
+}
 

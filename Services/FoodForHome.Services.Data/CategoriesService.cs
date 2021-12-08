@@ -28,18 +28,5 @@ namespace FoodForHome.Services.Data
                 .ToList()
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()));
         }
-
-        //public IEnumerable<KeyValuePair<string, string>> GetCategoriesAsKeyValuePair()
-        //{
-        //    return this.categoriesRepository.AllAsNoTracking()
-        //        .Select(x => new
-        //        {
-        //            x.Id,
-        //            x.Name,
-        //        })
-        //        .OrderBy(x => x.Id)
-        //        .ToList()
-        //        .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
-        //}
     }
 }

@@ -6,3 +6,8 @@ form.row.md-3 {
     margin: 15px;
     border-top: 1px solid gray;
 }
+
+#ingredients {
+    padding-bottom: 15px;
+    padding-top: 30px;
+}
