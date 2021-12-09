@@ -1,0 +1,17 @@
+﻿@model FoodForHome.Web.ViewModels.Menu.MenuViewModel
+@{
+    this.ViewData["Tittle"] = "Menu";
+}
+
+<h2>@this.ViewData["Tittle"]</h2>
+<div class="row">
+    @foreach (var category in this.Model.Categories)
+    {
+    <div class="col-md-3">
+        <img src="@category.ImageUrl" width="300" height="220" class="mr-3 img-responsive">
+        <div class="media-body">
+            <h5 class="mt-0"><a asp-action="ByCategory" asp-route-id="@category.Id">@category.Name</a></h5>
+        </div>
+    </div>
+    }
+</div>
