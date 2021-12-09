@@ -11,5 +11,7 @@ namespace FoodForHome.Services.Data
         Task CreateAsync(CreateDishInputModel input, string imgPath);
 
         IEnumerable<T> GetAll<T>();
+
+        IEnumerable<T> GetByCategoryId<T>(int id);
     }
 }

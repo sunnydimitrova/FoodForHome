@@ -8,7 +8,7 @@ using System.Text;
 
 namespace FoodForHome.Web.ViewModels.Menu
 {
-    public class MenuViewModel 
+    public class MenuViewModel
     {
         public IEnumerable<CategoryViewModel> Categories { get; set; }
 

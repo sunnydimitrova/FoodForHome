@@ -18,6 +18,8 @@ namespace FoodForHome.Data.Models
         [MaxLength(30)]
         public string Name { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public virtual ICollection<Dish> Dishes { get; set; }
     }
 }

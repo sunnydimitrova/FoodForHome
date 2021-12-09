@@ -38,6 +38,5 @@ namespace FoodForHome.Services.Data
 
             return categories;
         }
-
     }
 }

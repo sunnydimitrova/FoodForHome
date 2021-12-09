@@ -24,10 +24,6 @@ namespace FoodForHome.Web.ViewModels.Dishes
         [Range(0, 9999999999999999.99, ErrorMessage = "Invalid Target Price; Max 18 digits")]
         public string Price { get; set; }
 
-        //[Required]
-        //[RegularExpression(@"^([a-zA-Z]+\,{1}\s{1})+[a-zA-Z]+$", ErrorMessage = "The ingredients must be in the format described in brackets above")]
-        //public string Ingredients { get; set; }
-
         public int CategoryId { get; set; }
 
         [Url]

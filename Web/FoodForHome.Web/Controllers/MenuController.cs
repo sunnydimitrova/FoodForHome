@@ -21,12 +21,23 @@ namespace FoodForHome.Web.Controllers
             this.dishService = dishService;
         }
 
-        public IActionResult Menu()
+        public IActionResult Categories()
         {
             var viewModel = new MenuViewModel
             {
                 Categories = this.categoriesService.GetAll<CategoryViewModel>(),
                 Dishes = this.dishService.GetAll<DishInMenuViewModel>(),
+            };
+
+            return View(viewModel);
+        }
+
+        public IActionResult ByCategory(int id)
+        {
+            var viewModel = new MenuViewModel
+            {
+                Categories = this.categoriesService.GetAll<CategoryViewModel>(),
+                Dishes = this.dishService.GetByCategoryId<DishInMenuViewModel>(id),
             };
 
             return View(viewModel);

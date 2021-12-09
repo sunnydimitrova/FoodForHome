@@ -10,5 +10,6 @@ namespace FoodForHome.Services.Data
         IEnumerable<SelectListItem> GetCategories();
 
         IEnumerable<T> GetAll<T>();
+
     }
 }

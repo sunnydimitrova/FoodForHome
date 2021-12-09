@@ -86,5 +86,14 @@ namespace FoodForHome.Services.Data
 
             return dishes;
         }
+
+        public IEnumerable<T> GetByCategoryId<T>(int id)
+        {
+            var dishes = this.dishRepository.AllAsNoTracking()
+                .Where(x => x.CategoryId == id)
+                .To<T>().ToList();
+
+            return dishes;
+        }
     }
 }

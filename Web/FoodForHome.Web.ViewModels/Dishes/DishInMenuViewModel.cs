@@ -16,6 +16,8 @@ namespace FoodForHome.Web.ViewModels.Dishes
 
         public string ImageUrl { get; set; }
 
+        public int Gram { get; set; }
+
         public int CategotyId { get; set; }
 
         public string CategoryName { get; set; }

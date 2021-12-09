@@ -12,5 +12,7 @@ namespace FoodForHome.Web.ViewModels.Categories
 
         public string Name { get; set; }
 
+        public string ImageUrl { get; set; }
+
     }
 }
