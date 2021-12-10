@@ -13,5 +13,8 @@ namespace FoodForHome.Services.Data
         IEnumerable<T> GetAll<T>();
 
         IEnumerable<T> GetByCategoryId<T>(int id);
+
+        T GetById<T>(int id);
+
     }
 }

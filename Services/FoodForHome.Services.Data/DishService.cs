@@ -95,5 +95,14 @@ namespace FoodForHome.Services.Data
 
             return dishes;
         }
+
+        public T GetById<T>(int id)
+        {
+            var dish = this.dishRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>().FirstOrDefault();
+
+            return dish;
+        }
     }
 }

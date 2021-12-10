@@ -8,8 +8,9 @@ using System.Text;
 
 namespace FoodForHome.Web.ViewModels.Dishes
 {
-    public class DishInMenuViewModel : IMapFrom<Dish>, IHaveCustomMappings
+    public class SingleDishViewModel : IMapFrom<Dish>, IHaveCustomMappings
     {
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -24,9 +25,11 @@ namespace FoodForHome.Web.ViewModels.Dishes
 
         public decimal Price { get; set; }
 
+        public IEnumerable<IngredientViewModel> Ingredients { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Dish, DishInMenuViewModel>()
+            configuration.CreateMap<Dish, SingleDishViewModel>()
                 .ForMember(x => x.ImageUrl, opt =>
                     opt.MapFrom(x =>
                         x.Images.FirstOrDefault().Url != null ?
