@@ -42,5 +42,11 @@ namespace FoodForHome.Web.Controllers
 
             return View(viewModel);
         }
+
+        public IActionResult ById(int id)
+        {
+            var dish = this.dishService.GetById<SingleDishViewModel>(id);
+            return View(dish);
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@model FoodForHome.Web.ViewModels.Menu.MenuViewModel
 @{
-    this.ViewData["Tittle"] = this.Model.Dishes.First().CategoryName;
+    this.ViewData["Title"] = this.Model.Dishes.First().CategoryName;
 }
 <link href="~/css/bycategory.css" rel="stylesheet" />
 
@@ -14,7 +14,7 @@
                     <img src="@dish.ImageUrl" class="card-img-top dish-img" alt="...">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">@dish.Name</h5>
+                    <h5 class="card-title"><a asp-action="ById" asp-route-id="@dish.Id">@dish.Name</a></h5>
                     <p class="card-text">@dish.Price BGN</p>
                     <p class="card-text">@dish.Gram grams</p>
                 </div>

@@ -1,0 +1,22 @@
+﻿.justify-content-start, p, h2, #categoryName {
+    padding-left: 50px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+img {
+    max-width: 500px;
+}
+
+.font-weight-bold {
+    font-size: 22px;
+}#categoryName {
+    border-top: 1px solid blue;
+    border-bottom: 1px solid blue;
+}#gap {
+    gap: 15px;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
