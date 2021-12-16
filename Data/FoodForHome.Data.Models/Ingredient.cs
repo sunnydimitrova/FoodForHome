@@ -17,7 +17,7 @@ namespace FoodForHome.Data.Models
 
         [Required]
         [MaxLength(15)]
-        public string Neme { get; set; }
+        public string Name { get; set; }
 
         public virtual ICollection<Dish> Dishes { get; set; }
 

@@ -11,7 +11,7 @@ namespace FoodForHome.Data.Models
         public Order()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Dishes = new HashSet<Dish>();
+            this.OrderDetails = new HashSet<OrderDetail>();
         }
 
         public string Address { get; set; }
@@ -22,6 +22,6 @@ namespace FoodForHome.Data.Models
 
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<Dish> Dishes { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

@@ -5,6 +5,7 @@
 
 img {
     max-width: 500px;
+    max-height: 500px;
 }
 
 .font-weight-bold {
@@ -15,8 +16,5 @@ img {
 }#gap {
     gap: 15px;
 }
-
-.box-shadow {
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
+
 

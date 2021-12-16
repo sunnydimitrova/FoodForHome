@@ -8,6 +8,6 @@ namespace FoodForHome.Web.ViewModels.Dishes
 {
     public class IngredientViewModel : IMapFrom<Ingredient>
     {
-        public string Neme { get; set; }
+        public string Name { get; set; }
     }
 }

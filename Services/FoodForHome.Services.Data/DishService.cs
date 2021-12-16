@@ -40,12 +40,12 @@ namespace FoodForHome.Services.Data
 
             foreach (var currIngredient in input.Ingredients)
             {
-                var ingredient = this.ingredientRepository.All().FirstOrDefault(x => x.Neme == currIngredient.Name);
+                var ingredient = this.ingredientRepository.All().FirstOrDefault(x => x.Name == currIngredient.Name);
                 if (ingredient == null)
                 {
                     ingredient = new Ingredient
                     {
-                        Neme = currIngredient.Name,
+                        Name = currIngredient.Name,
                     };
                 }
 
@@ -104,5 +104,6 @@ namespace FoodForHome.Services.Data
 
             return dish;
         }
+
     }
 }

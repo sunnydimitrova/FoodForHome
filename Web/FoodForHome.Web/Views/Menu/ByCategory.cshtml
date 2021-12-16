@@ -1,24 +1,38 @@
 ﻿@model FoodForHome.Web.ViewModels.Menu.MenuViewModel
 @{
-    this.ViewData["Title"] = this.Model.Dishes.First().CategoryName;
+    if (!this.Model.Dishes.Any())
+    {
+        this.ViewData["Title"] = "Empty Category";
+    }
+    else
+    {
+        this.ViewData["Title"] = this.Model.Dishes.First().CategoryName;
+    }
 }
 <link href="~/css/bycategory.css" rel="stylesheet" />
 
 <h2>@ViewData["Tittle"]</h2>
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (var dish in this.Model.Dishes)
+    @if (!this.Model.Dishes.Any())
     {
-        <div class="col">
-            <div class="card h-100">
-                <div class="container-img">
-                    <img src="@dish.ImageUrl" class="card-img-top dish-img" alt="...">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title"><a asp-action="ById" asp-route-id="@dish.Id">@dish.Name</a></h5>
-                    <p class="card-text">@dish.Price BGN</p>
-                    <p class="card-text">@dish.Gram grams</p>
+        <p>The current category is empty for now!</p>
+    }
+    else
+    {
+        @foreach (var dish in this.Model.Dishes)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="container-img">
+                        <img src="@dish.ImageUrl" class="card-img-top dish-img" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><a asp-action="ById" asp-route-id="@dish.Id">@dish.Name</a></h5>
+                        <p class="card-text">@dish.Price BGN</p>
+                        <p class="card-text">@dish.Gram grams</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     }
 </div>

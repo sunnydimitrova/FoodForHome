@@ -1,7 +1,11 @@
-﻿using FoodForHome.Services.Data;
+﻿using FoodForHome.Common;
+using FoodForHome.Services.Data;
 using FoodForHome.Web.ViewModels.Categories;
 using FoodForHome.Web.ViewModels.Dishes;
 using FoodForHome.Web.ViewModels.Menu;
+using FoodForHome.Web.ViewModels.Orders;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -45,8 +49,9 @@ namespace FoodForHome.Web.Controllers
 
         public IActionResult ById(int id)
         {
-            var dish = this.dishService.GetById<SingleDishViewModel>(id);
-            return View(dish);
+            var item = new OrderDetailsViewModel();
+            item.Dish = this.dishService.GetById<SingleDishViewModel>(id);
+            return View(item);
         }
     }
 }

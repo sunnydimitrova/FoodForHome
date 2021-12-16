@@ -59,5 +59,12 @@
 
             return this.Redirect("/");
         }
+
+        public IActionResult AddToCart()
+        {
+            var viewModel = new CreateDishInputModel();
+            viewModel.Categories = this.categoriesService.GetCategories();
+            return this.View(viewModel);
+        }
     }
 }
