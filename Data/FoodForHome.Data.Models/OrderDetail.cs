@@ -1,10 +1,11 @@
-﻿using FoodForHome.Data.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FoodForHome.Data.Models
+﻿namespace FoodForHome.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using FoodForHome.Data.Common.Models;
+
     public class OrderDetail : BaseModel<int>
     {
         public string OrderId { get; set; }

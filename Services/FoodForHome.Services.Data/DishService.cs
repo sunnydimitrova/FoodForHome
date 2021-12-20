@@ -1,17 +1,18 @@
-﻿using FoodForHome.Data.Common.Repositories;
-using FoodForHome.Data.Models;
-using FoodForHome.Services.Mapping;
-using FoodForHome.Web.ViewModels.Dishes;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoodForHome.Services.Data
+﻿namespace FoodForHome.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using FoodForHome.Data.Common.Repositories;
+    using FoodForHome.Data.Models;
+    using FoodForHome.Services.Mapping;
+    using FoodForHome.Web.ViewModels.Dishes;
+
     public class DishService : IDishService
     {
         private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
@@ -104,6 +105,5 @@ namespace FoodForHome.Services.Data
 
             return dish;
         }
-
     }
 }

@@ -6,7 +6,10 @@
     using System.Threading.Tasks;
     using FoodForHome.Common;
     using FoodForHome.Services.Data;
+    using FoodForHome.Web.ViewModels.Categories;
     using FoodForHome.Web.ViewModels.Dishes;
+    using FoodForHome.Web.ViewModels.Menu;
+    using FoodForHome.Web.ViewModels.Orders;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -60,11 +63,21 @@
             return this.Redirect("/");
         }
 
-        public IActionResult AddToCart()
+        public IActionResult ById(int id)
         {
-            var viewModel = new CreateDishInputModel();
-            viewModel.Categories = this.categoriesService.GetCategories();
-            return this.View(viewModel);
+            var item = this.dishService.GetById<SingleDishViewModel>(id);
+            return View(item);
+        }
+
+        public IActionResult ByCategory(int id)
+        {
+            var viewModel = new MenuViewModel
+            {
+                Categories = this.categoriesService.GetAll<CategoryViewModel>(),
+                Dishes = this.dishService.GetByCategoryId<DishInMenuViewModel>(id),
+            };
+
+            return View(viewModel);
         }
     }
 }

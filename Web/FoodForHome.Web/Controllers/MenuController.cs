@@ -36,22 +36,22 @@ namespace FoodForHome.Web.Controllers
             return View(viewModel);
         }
 
-        public IActionResult ByCategory(int id)
-        {
-            var viewModel = new MenuViewModel
-            {
-                Categories = this.categoriesService.GetAll<CategoryViewModel>(),
-                Dishes = this.dishService.GetByCategoryId<DishInMenuViewModel>(id),
-            };
+        //public IActionResult ByCategory(int id)
+        //{
+        //    var viewModel = new MenuViewModel
+        //    {
+        //        Categories = this.categoriesService.GetAll<CategoryViewModel>(),
+        //        Dishes = this.dishService.GetByCategoryId<DishInMenuViewModel>(id),
+        //    };
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
 
-        public IActionResult ById(int id)
-        {
-            var item = new OrderDetailsViewModel();
-            item.Dish = this.dishService.GetById<SingleDishViewModel>(id);
-            return View(item);
-        }
+        //public IActionResult ById(int id)
+        //{
+        //    var item = new OrderDetailsViewModel();
+        //    item.Dish = this.dishService.GetById<SingleDishViewModel>(id);
+        //    return View(item);
+        //}
     }
 }

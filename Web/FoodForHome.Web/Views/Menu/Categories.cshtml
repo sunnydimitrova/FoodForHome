@@ -10,7 +10,7 @@
     <div class="col-md-3">
         <img src="@category.ImageUrl" width="300" height="220" class="mr-3 img-responsive">
         <div class="media-body">
-            <h5 class="mt-0"><a asp-action="ByCategory" asp-route-id="@category.Id">@category.Name</a></h5>
+            <h5 class="mt-0"><a asp-controller="Dish" asp-action="ByCategory" asp-route-id="@category.Id">@category.Name</a></h5>
         </div>
     </div>
     }
