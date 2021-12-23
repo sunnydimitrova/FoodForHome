@@ -1,4 +1,4 @@
-﻿@model FoodForHome.Web.ViewModels.Orders.OrderDetailsViewModel
+﻿@model FoodForHome.Web.ViewModels.Orders.CartViewModel
 @{
 }
 
@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in ViewBag.cart)
+        @foreach (var item in this.Model.Items)
         {
         <tr>
             <td><img src="@item.Dish.ImageUrl" width="100" height="85" /> </td>
@@ -30,7 +30,7 @@
     <tr>
         <td class="font-weight-bold" align="right" colspan="6">Total price: </td>
         <td class="font-weight-bold">
-            @ViewBag.total BGN
+            @this.Model.TotalPrice BGN
         </td>
     </tr>
 </table>

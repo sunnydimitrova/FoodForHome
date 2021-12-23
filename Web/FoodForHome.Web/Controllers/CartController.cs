@@ -3,76 +3,54 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using FoodForHome.Services.Data;
     using FoodForHome.Web.Helpers;
     using FoodForHome.Web.ViewModels.Dishes;
     using FoodForHome.Web.ViewModels.Orders;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class CartController : Controller
     {
         private readonly IDishService dishService;
+        private readonly IOrderDetailsService orderDetailsService;
 
-        public CartController(IDishService dishService)
+        public CartController(IDishService dishService, IOrderDetailsService orderDetailsService)
         {
             this.dishService = dishService;
+            this.orderDetailsService = orderDetailsService;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
-            var cart = SessionHelper.GetObjectFromJson<List<OrderDetailsViewModel>>(HttpContext.Session, "cart");
-            ViewBag.cart = cart;
-            ViewBag.total = cart.Sum(x => x.Dish.Price * x.Quantity);
-            return View();
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var cart = new CartViewModel
+            {
+                Items = this.orderDetailsService.GetAll<OrderDetailsViewModel>(userId),
+            };
+            cart.TotalPrice = cart.Items.Sum(x => x.Dish.Price * x.Quantity);
+            return View(cart);
         }
 
-        private int isExist(int id)
+        [Authorize]
+        public async Task<IActionResult> Buy(int id)
         {
-            List<OrderDetailsViewModel> cart = SessionHelper.GetObjectFromJson<List<OrderDetailsViewModel>>(HttpContext.Session, "cart");
-            for (int i = 0; i < cart.Count; i++)
-            {
-                if (cart[i].Dish.Id.Equals(id))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        public IActionResult Buy(int id)
-        {
-            if (SessionHelper.GetObjectFromJson<List<OrderDetailsViewModel>>(HttpContext.Session, "cart") == null)
-            {
-                var cart = new List<OrderDetailsViewModel>();
-                cart.Add(new OrderDetailsViewModel { Dish = this.dishService.GetById<SingleDishViewModel>(id), Quantity = 1 });
-                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-            }
-            else
-            {
-                List<OrderDetailsViewModel> cart = SessionHelper.GetObjectFromJson<List<OrderDetailsViewModel>>(HttpContext.Session, "cart");
-                int index = isExist(id);
-                if (index != -1)
-                {
-                    cart[index].Quantity++;
-                }
-                else
-                {
-                    cart.Add(new OrderDetailsViewModel { Dish = this.dishService.GetById<SingleDishViewModel>(id), Quantity = 1 });
-                }
-                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-            }
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var orderDetails = new OrderDetailsViewModel {
+                Dish = this.dishService.GetById<SingleDishViewModel>(id),
+                Quantity = 1,
+            };
+            await this.orderDetailsService.CreateAsync(orderDetails, userId);
 
             return RedirectToAction("Index");
         }
 
-        public IActionResult Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            List<OrderDetailsViewModel> cart = SessionHelper.GetObjectFromJson<List<OrderDetailsViewModel>>(HttpContext.Session, "cart");
-            int index = isExist(id);
-            cart.RemoveAt(index);
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            await this.orderDetailsService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
     }

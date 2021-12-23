@@ -8,7 +8,7 @@
     using FoodForHome.Services.Mapping;
     using FoodForHome.Web.ViewModels.Dishes;
 
-    public class OrderDetailsViewModel /*: IMapFrom<OrderDetail>*/
+    public class OrderDetailsViewModel : IMapFrom<OrderDetail>
     {
         public SingleDishViewModel Dish { get; set; }
 

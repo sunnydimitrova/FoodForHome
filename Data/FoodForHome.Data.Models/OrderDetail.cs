@@ -12,6 +12,8 @@
 
         public virtual Order Order { get; set; }
 
+        public string CartId { get; set; }
+
         public int DishId { get; set; }
 
         public virtual Dish Dish { get; set; }

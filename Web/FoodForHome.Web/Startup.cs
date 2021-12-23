@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 using FoodForHome.Data;
 using FoodForHome.Data.Common;
@@ -53,7 +54,12 @@ namespace FoodForHome.Web
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
-            services.AddSession();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = new TimeSpan(5, 0, 0, 0);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
@@ -68,6 +74,7 @@ namespace FoodForHome.Web
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IDishService, DishService>();
+            services.AddTransient<IOrderDetailsService, OrderDetailsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
