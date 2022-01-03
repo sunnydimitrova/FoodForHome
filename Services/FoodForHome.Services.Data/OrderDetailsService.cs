@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FoodForHome.Services.Data
 {
-   
+
     public class OrderDetailsService : IOrderDetailsService
     {
         private readonly IRepository<OrderDetail> orderDetailRepository;
@@ -20,9 +20,10 @@ namespace FoodForHome.Services.Data
             this.orderDetailRepository = orderDetailRepository;
         }
 
-        public async Task CreateAsync(OrderDetailsViewModel input, string cartId)
+        public async Task CreateAsync(OrderDetailsViewModel input, string userId)
         {
-            var orderDetail = this.orderDetailRepository.AllAsNoTracking().FirstOrDefault(x => x.Dish.Id == input.Dish.Id);
+            var orderDetail = this.orderDetailRepository.AllAsNoTracking()
+                .FirstOrDefault(x => x.Dish.Id == input.Dish.Id && x.UserId == userId);
             if (orderDetail != null)
             {
                 orderDetail.Quantity = orderDetail.Quantity + 1;
@@ -35,18 +36,20 @@ namespace FoodForHome.Services.Data
                 {
                     DishId = input.Dish.Id,
                     Quantity = input.Quantity,
-                    CartId = cartId,
+                    UserId = userId,
                     UnitPrice = input.Dish.Price,
                     TotalPrice = input.Dish.Price * input.Quantity,
                 };
                 await this.orderDetailRepository.AddAsync(orderDetail);
             }
+
             await this.orderDetailRepository.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int dishId)
+        public async Task DeleteAsync(int dishId, string userId)
         {
             var deleteDish = this.orderDetailRepository.AllAsNoTracking()
+                .Where(x => x.UserId == userId)
                 .FirstOrDefault(x => x.Dish.Id == dishId);
             this.orderDetailRepository.Delete(deleteDish);
             await this.orderDetailRepository.SaveChangesAsync();
@@ -54,11 +57,11 @@ namespace FoodForHome.Services.Data
 
         public IEnumerable<T> GetAll<T>(string userId)
         {
-            var orderDetails = this.orderDetailRepository.AllAsNoTracking()
-                .Where(x => x.CartId == userId)
+            var cart = this.orderDetailRepository.AllAsNoTracking()
+                .Where(x => x.UserId == userId)
                 .To<T>().ToList();
 
-            return orderDetails;
+            return cart;
         }
     }
 }

@@ -21,18 +21,20 @@
     {
         @foreach (var dish in this.Model.Dishes)
         {
-            <div class="col">
-                <div class="card h-100">
-                    <div class="container-img">
-                        <img src="@dish.ImageUrl" class="card-img-top dish-img" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><a asp-action="ById" asp-route-id="@dish.Id">@dish.Name</a></h5>
-                        <p class="card-text">@dish.Price BGN</p>
-                        <p class="card-text">@dish.Gram grams</p>
+            <a asp-action="ById" asp-route-id="@dish.Id">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="container-img">
+                            <img src="@dish.ImageUrl" class="card-img-top dish-img" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@dish.Name</h5>
+                            <p class="card-text">@dish.Price BGN</p>
+                            <p class="card-text">@dish.Gram grams</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            </a>
+         }
     }
-</div>
+        </div>

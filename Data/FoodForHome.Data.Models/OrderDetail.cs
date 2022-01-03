@@ -12,7 +12,11 @@
 
         public virtual Order Order { get; set; }
 
-        public string CartId { get; set; }
+        public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
+
+        //public string CartId { get; set; }
 
         public int DishId { get; set; }
 

@@ -12,6 +12,6 @@ namespace FoodForHome.Services.Data
 
         IEnumerable<T> GetAll<T>(string userId);
 
-        Task DeleteAsync(int dishId);
+        Task DeleteAsync(int dishId, string userId);
     }
 }

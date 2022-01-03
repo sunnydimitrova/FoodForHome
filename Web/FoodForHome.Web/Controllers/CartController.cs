@@ -39,7 +39,8 @@
         public async Task<IActionResult> Buy(int id)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var orderDetails = new OrderDetailsViewModel {
+            var orderDetails = new OrderDetailsViewModel
+            {
                 Dish = this.dishService.GetById<SingleDishViewModel>(id),
                 Quantity = 1,
             };
@@ -50,7 +51,8 @@
 
         public async Task<IActionResult> Remove(int id)
         {
-            await this.orderDetailsService.DeleteAsync(id);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await this.orderDetailsService.DeleteAsync(id, userId);
             return RedirectToAction("Index");
         }
     }

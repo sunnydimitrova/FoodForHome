@@ -18,6 +18,7 @@ namespace FoodForHome.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Dishes = new HashSet<Dish>();
             this.Orders = new HashSet<Order>();
+            this.Cart = new HashSet<OrderDetail>();
         }
 
         public string FullName { get; set; }
@@ -31,6 +32,8 @@ namespace FoodForHome.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public virtual ICollection<OrderDetail> Cart { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
