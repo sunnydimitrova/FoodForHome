@@ -7,36 +7,37 @@
 
 <link href="~/css/byId.css" rel="stylesheet" />
 
-<div class="d-flex align-items-center box-shadow">
-    <div class="flex-shrink-0">
+<div class="content-container">
+    <div class="img-container">
         <img class="rounded" src="@dishImg" alt="...">
     </div>
-    <div class="flex-grow-1 ms-2">
-        <div>
+    <div class="text-container">
             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-warning"><a asp-action="Edit" asp-route-id="@this.Model.Id">Edit dish</a></button>
-                    <button type="button" class="btn btn-outline-danger"><a asp-action="Delete" asp-route-id="@this.Model.Id">Delete dish</a></button>
+                <div class="edit-delete-buttons">
+                    <button type="button" class="btn-edit"><a asp-action="Edit" asp-route-id="@this.Model.Id">Edit dish</a></button>
+                    <button type="button" class="btn-delete"><a asp-action="Delete" asp-route-id="@this.Model.Id">Delete dish</a></button>
                 </div>
             }
-            <h2 class="d-flex">@this.Model.Name</h2>
-            <p class="d-flex justify-content-start">@this.Model.Gram grams</p>
-            <p class="d-flex font-weight-bold">Ingredients:</p>
-            @foreach (var ingredient in this.Model.Ingredients)
-            {
-                <span class="d-flex justify-content-start">@ingredient.Name</span>
-            }
-            <div id="categoryName" class="d-flex font-weight-bold"><a asp-action="ByCategory" asp-route-id="@this.Model.CategoryId">@this.Model.CategoryName</a></div>
-            <div class="d-flex bd-highlight">
-                <div class="p-2 flex-grow-1 bd-highlight font-weight-bold">Price:</div>
-                <div class="p-2 bd-highlight font-weight-bold">@this.Model.Price BGN</div>
+            <h2 class="dish-name">@this.Model.Name</h2>
+            <p class="dish-gram">@this.Model.Gram grams</p>
+            <h5 class="ingredients">Ingredients:</h5>
+            <div class="ingredients-container">
+                @foreach (var ingredient in this.Model.Ingredients)
+                {
+                    <p class="ingredient-name">@ingredient.Name</p>
+                }
+            </div>           
+            <div id="categoryName" class="category"><a asp-action="ByCategory" asp-route-id="@this.Model.CategoryId">@this.Model.CategoryName</a></div>
+            <div class="price-container">
+                <p class="price">Price:</p>
+                <p class="price-number">@this.Model.Price BGN</p>
             </div>
-            <div id="gap" class="d-flex align-items-center">
-                @*<input asp-for="Quantity" type="text" id="edit-quantity" name="quantity" value="1" size="5" maxlength="128" class="form-text">*@
-                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@this.Model.Id">Add to cart</a>
+            <div class="buttons-container">
+                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@this.Model.Id"><div><i class="bi bi-cart-check-fill"></i> Add to cart</div></a>
+                <a><div><i class="bi bi-star-fill"></i> Favourite</div></a>
+                <a><div><i class="bi bi-heart-fill"></i> Like</div></a>
             </div>
-        </div>
     </div>
 </div>
 

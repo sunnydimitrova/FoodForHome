@@ -11,8 +11,8 @@
 }
 <link href="~/css/bycategory.css" rel="stylesheet" />
 
-<h2>@ViewData["Tittle"]</h2>
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<h2>@ViewData["Title"]</h2>
+<div class="content-container">
     @if (!this.Model.Dishes.Any())
     {
         <p>The current category is empty for now!</p>
@@ -21,18 +21,16 @@
     {
         @foreach (var dish in this.Model.Dishes)
         {
-            <a asp-action="ById" asp-route-id="@dish.Id">
-                <div class="col">
-                    <div class="card h-100">
+            <a class="style-none" asp-action="ById" asp-route-id="@dish.Id">
+                <div class="card-container">                   
                         <div class="container-img">
-                            <img src="@dish.ImageUrl" class="card-img-top dish-img" alt="...">
+                            <img src="@dish.ImageUrl" class="dish-img" alt="...">
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">@dish.Name</h5>
-                            <p class="card-text">@dish.Price BGN</p>
-                            <p class="card-text">@dish.Gram grams</p>
+                        <div class="dish-card-body">
+                            <h5 class="dish-title">@dish.Name</h5>
+                            <p class="dish-price">@dish.Price BGN</p>
+                            <p class="dish-gram">@dish.Gram grams</p>
                         </div>
-                    </div>
                 </div>
             </a>
          }

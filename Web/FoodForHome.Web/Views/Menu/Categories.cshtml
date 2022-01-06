@@ -2,18 +2,25 @@
 @{
     this.ViewData["Title"] = "Menu";
 }
+<link href="~/css/categories.css" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mukta&display=swap" rel="stylesheet">
 
-<h2>@this.ViewData["Tittle"]</h2>
-<div class="row">
+<h2>Categories</h2>
+<div class="content-container">
     @foreach (var category in this.Model.Categories)
     {
-        <a asp-controller="Dish" asp-action="ByCategory" asp-route-id="@category.Id">
-            <div class="col-md-3">
-                <img src="@category.ImageUrl" width="300" height="220" class="mr-3 img-responsive">
-                <div class="media-body">
-                    <h5 class="mt-0">@category.Name</h5>
+        <a class="display-none" asp-controller="Dish" asp-action="ByCategory" asp-route-id="@category.Id">
+            <div class="img-container">
+                <img src="@category.ImageUrl" class="img">
+                <div class="background"></div>
+                <div class="category-name-container">
+                    <h5 class="category-name">@category.Name</h5>
                 </div>
             </div>
-         </a>
-     }
-    </div>
+        </a>
+    }
+</div>
+
+
