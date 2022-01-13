@@ -61,7 +61,10 @@ namespace FoodForHome.Web
                 options.Cookie.IsEssential = true;
             });
             services.AddDatabaseDeveloperPageExceptionFilter();
-
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
             services.AddSingleton(this.configuration);
 
             // Data repositories
@@ -75,6 +78,7 @@ namespace FoodForHome.Web
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IDishService, DishService>();
             services.AddTransient<IOrderDetailsService, OrderDetailsService>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

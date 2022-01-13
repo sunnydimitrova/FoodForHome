@@ -16,12 +16,45 @@ form.row.md-3 {
     padding-bottom: 15px;
 }
 
-label, h2 {
-    font-family: 'Times New Roman', Times, serif;
+.button {
+    background-color: #f0b828;
+    border: 1px solid #f0b828;
+}
+
+.button:hover {
+    background-color: #f8e2ab;
+    border: 1px solid #f8e2ab;
+    color: #f0b828;
+    font-size: 1.1rem;
 }
 
 label {
     font-size: 18px;
+    color: #f0b828;
+}
+
+#more-ingredients, #images {
+    background-color: #f8e2ab;
+    border: 1px solid #f8e2ab;
+    color: #f0b828;
+    font-size: 1.1rem;
+}
+
+#caregory {
+    color: #f0b828;
+    border-color: gray;
+}
+
+#more-ingredients:hover {
+    background-color: #f0b828;
+    border: 1px solid #f0b828;
+    color: white;
+}
+
+h2 {
+    text-align: center;
+    padding-bottom: 20px;
+    color: #f0b828;
 }
 
 .box-shadow {

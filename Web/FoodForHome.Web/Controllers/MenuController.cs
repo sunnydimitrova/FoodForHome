@@ -2,7 +2,6 @@
 using FoodForHome.Services.Data;
 using FoodForHome.Web.ViewModels.Categories;
 using FoodForHome.Web.ViewModels.Dishes;
-using FoodForHome.Web.ViewModels.Menu;
 using FoodForHome.Web.ViewModels.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -27,31 +26,12 @@ namespace FoodForHome.Web.Controllers
 
         public IActionResult Categories()
         {
-            var viewModel = new MenuViewModel
+            var viewModel = new CategoriesViewModel
             {
                 Categories = this.categoriesService.GetAll<CategoryViewModel>(),
-                Dishes = this.dishService.GetAll<DishInMenuViewModel>(),
             };
 
             return View(viewModel);
         }
-
-        //public IActionResult ByCategory(int id)
-        //{
-        //    var viewModel = new MenuViewModel
-        //    {
-        //        Categories = this.categoriesService.GetAll<CategoryViewModel>(),
-        //        Dishes = this.dishService.GetByCategoryId<DishInMenuViewModel>(id),
-        //    };
-
-        //    return View(viewModel);
-        //}
-
-        //public IActionResult ById(int id)
-        //{
-        //    var item = new OrderDetailsViewModel();
-        //    item.Dish = this.dishService.GetById<SingleDishViewModel>(id);
-        //    return View(item);
-        //}
     }
 }

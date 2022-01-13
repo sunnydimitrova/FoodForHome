@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using FoodForHome.Common;
     using FoodForHome.Services.Data;
     using FoodForHome.Web.ViewModels.Categories;
     using FoodForHome.Web.ViewModels.Dishes;
-    using FoodForHome.Web.ViewModels.Menu;
     using FoodForHome.Web.ViewModels.Orders;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
@@ -71,9 +71,8 @@
 
         public IActionResult ByCategory(int id)
         {
-            var viewModel = new MenuViewModel
+            var viewModel = new DishesByCategoryViewModel
             {
-                Categories = this.categoriesService.GetAll<CategoryViewModel>(),
                 Dishes = this.dishService.GetByCategoryId<DishInMenuViewModel>(id),
             };
 

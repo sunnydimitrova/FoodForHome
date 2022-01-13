@@ -28,19 +28,41 @@
                     <p class="ingredient-name">@ingredient.Name</p>
                 }
             </div>           
-            <div id="categoryName" class="category"><a asp-action="ByCategory" asp-route-id="@this.Model.CategoryId">@this.Model.CategoryName</a></div>
+            <div class="category"><a asp-action="ByCategory" asp-route-id="@this.Model.CategoryId">@this.Model.CategoryName</a></div>
             <div class="price-container">
                 <p class="price">Price:</p>
                 <p class="price-number">@this.Model.Price BGN</p>
             </div>
-            <div class="buttons-container">
-                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@this.Model.Id"><div><i class="bi bi-cart-check-fill"></i> Add to cart</div></a>
-                <a><div><i class="bi bi-star-fill"></i> Favourite</div></a>
-                <a><div><i class="bi bi-heart-fill"></i> Like</div></a>
-            </div>
+            <disv class="buttons-container">
+                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@this.Model.Id"><div class="add-to-cart"><i class="bi bi-cart-check-fill"></i> Add to cart</div></a>
+                <a><div type="button" value="Favourite" onclick="addToFavourite()" id="fav" class="favourite"><i class="bi bi-star-fill"></i> Favourite</div></a>
+                <a><div type="button" value="Like" class="like"><i class="bi bi-heart-fill"></i>  Like</div></a>
+            </disv>
     </div>
 </div>
 
-
+@section Scripts {
+ <script>
+     function addToFavourite() {
+         const dishId = @Model.Id;
+         var data = { dishId: dishId };
+         $.ajax({
+             type: "POST",
+             url: "/api/Favourite",
+             data: JSON.stringify(data),
+             //headers: {
+             //    'X-CSRF-TOKEN': antiForgeryToken
+             //},
+             success: function (data) {
+                 var favourite = document.getElementById('fav');
+                 favourite.innerHTML = "added to favourite";
+                 console.log(data);
+             },
+             contentType: 'application/json',
+         });
+         
+     }
+ </script>
+}
 
 

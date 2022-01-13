@@ -19,12 +19,14 @@
         private readonly IDeletableEntityRepository<Dish> dishRepository;
         private readonly IDeletableEntityRepository<Ingredient> ingredientRepository;
         private readonly IRepository<Image> imagesRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
-        public DishService(IDeletableEntityRepository<Dish> dishRepository, IDeletableEntityRepository<Ingredient> ingredientRepository, IRepository<Image> imagesRepository)
+        public DishService(IDeletableEntityRepository<Dish> dishRepository, IDeletableEntityRepository<Ingredient> ingredientRepository, IRepository<Image> imagesRepository, IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             this.dishRepository = dishRepository;
             this.ingredientRepository = ingredientRepository;
             this.imagesRepository = imagesRepository;
+            this.userRepository = userRepository;
         }
 
         public async Task CreateAsync(CreateDishInputModel input, string imgPath)
