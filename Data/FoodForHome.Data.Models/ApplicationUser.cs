@@ -16,7 +16,7 @@ namespace FoodForHome.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-            this.Dishes = new HashSet<Dish>();
+            this.Dishes = new HashSet<ApplicationUserDish>();
             this.Orders = new HashSet<Order>();
             this.Cart = new HashSet<OrderDetail>();
         }
@@ -41,7 +41,7 @@ namespace FoodForHome.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public virtual ICollection<Dish> Dishes { get; set; }
+        public virtual ICollection<ApplicationUserDish> Dishes { get; set; }
 
         public virtual ICollection<Ingredient> Ingredients { get; set; }
 

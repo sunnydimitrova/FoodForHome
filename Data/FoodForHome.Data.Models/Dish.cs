@@ -13,7 +13,7 @@ namespace FoodForHome.Data.Models
         {
             this.Ingredients = new HashSet<Ingredient>();
             this.Images = new HashSet<Image>();
-            this.Users = new HashSet<ApplicationUser>();
+            this.Users = new HashSet<ApplicationUserDish>();
         }
 
         [Required]
@@ -32,6 +32,6 @@ namespace FoodForHome.Data.Models
 
         public virtual ICollection<Image> Images { get; set; }
 
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public virtual ICollection<ApplicationUserDish> Users { get; set; }
     }
 }

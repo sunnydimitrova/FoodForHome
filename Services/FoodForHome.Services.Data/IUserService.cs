@@ -11,6 +11,6 @@ namespace FoodForHome.Services.Data
 
         Task AddFavouriteDish(string userId, int dishId);
 
-        IEnumerable<T> GetFavouriteDish<T>(string userId);
+        Task DeleteFavouriteDish(string userId, int dishId);
     }
 }

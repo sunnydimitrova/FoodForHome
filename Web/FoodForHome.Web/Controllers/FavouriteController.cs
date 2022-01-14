@@ -36,5 +36,15 @@ namespace FoodForHome.Web.Controllers
             await this.userService.AddFavouriteDish(userId, input.DishId);
             return new ResponceFavouriteModel { Message = "Add succesful" };
         }
+
+        [Authorize]
+        [HttpDelete]
+        [IgnoreAntiforgeryToken]
+        public async Task<ActionResult<ResponceFavouriteModel>> Delete(InputFavouriteModel input)
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await this.userService.DeleteFavouriteDish(userId, input.DishId);
+            return new ResponceFavouriteModel { Message = "Delete succesfuly" };
+        }
     }
 }

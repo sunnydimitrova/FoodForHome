@@ -38,6 +38,8 @@ namespace FoodForHome.Data
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
+        public DbSet<ApplicationUserDish> ApplicationUserDishes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

@@ -13,11 +13,14 @@ namespace FoodForHome.Services.Data
     {
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Dish> dishRepository;
+        private readonly IDeletableEntityRepository<ApplicationUserDish> userDishRepository;
 
-        public UserService(IDeletableEntityRepository<ApplicationUser> userRepository, IDeletableEntityRepository<Dish> dishRepository)
+        public UserService(IDeletableEntityRepository<ApplicationUser> userRepository, IDeletableEntityRepository<Dish> dishRepository, 
+        IDeletableEntityRepository<ApplicationUserDish> userDishRepository)
         {
             this.userRepository = userRepository;
             this.dishRepository = dishRepository;
+            this.userDishRepository = userDishRepository;
         }
 
         public T GetById<T>(string id)
@@ -32,22 +35,24 @@ namespace FoodForHome.Services.Data
         public async Task AddFavouriteDish(string userId, int dishId)
         {
             var user = this.userRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == userId);
-
             var dish = this.dishRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == dishId);
 
-            user.Dishes.Add(dish);
-            dish.Users.Add(user);
-            this.dishRepository.Update(dish);
+            user.Dishes.Add(new ApplicationUserDish
+            {
+                 Dish = dish,
+            });
+
             this.userRepository.Update(user);
             await this.userRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetFavouriteDish<T>(string userId)
+        public async Task DeleteFavouriteDish(string userId, int dishId)
         {
-            var dishes = this.userRepository.AllAsNoTracking().Where(x => x.Id == userId)
-                .Select(x => x.Dishes).To<T>().ToList<T>();
+            var userDish = this.userDishRepository.AllAsNoTracking()
+                .FirstOrDefault(x => x.ApplicationUserId == userId && x.DishId == dishId);
 
-            return dishes;
+            this.userDishRepository.Delete(userDish);
+            await this.userRepository.SaveChangesAsync();
         }
     }
 }

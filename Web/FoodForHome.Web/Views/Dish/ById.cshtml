@@ -1,17 +1,19 @@
 ﻿@model FoodForHome.Web.ViewModels.Dishes.SingleDishViewModel
-@using FoodForHome.Common
-@{
-    this.ViewData["Title"] = this.Model.CategoryName + " " + this.Model.Name;
-    var dishImg = this.Model.ImageUrl;
-}
+@using System.Security.Claims;
+    @using FoodForHome.Common
+    @{
+        this.ViewData["Title"] = this.Model.CategoryName + " " + this.Model.Name;
+        var dishImg = this.Model.ImageUrl;
+        var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+    }
 
-<link href="~/css/byId.css" rel="stylesheet" />
+    <link href="~/css/byId.css" rel="stylesheet" />
 
-<div class="content-container">
-    <div class="img-container">
-        <img class="rounded" src="@dishImg" alt="...">
-    </div>
-    <div class="text-container">
+    <div class="content-container">
+        <div class="img-container">
+            <img class="rounded" src="@dishImg" alt="...">
+        </div>
+        <div class="text-container">
             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 <div class="edit-delete-buttons">
@@ -27,7 +29,7 @@
                 {
                     <p class="ingredient-name">@ingredient.Name</p>
                 }
-            </div>           
+            </div>
             <div class="category"><a asp-action="ByCategory" asp-route-id="@this.Model.CategoryId">@this.Model.CategoryName</a></div>
             <div class="price-container">
                 <p class="price">Price:</p>
@@ -35,34 +37,60 @@
             </div>
             <disv class="buttons-container">
                 <a asp-controller="Cart" asp-action="Buy" asp-route-id="@this.Model.Id"><div class="add-to-cart"><i class="bi bi-cart-check-fill"></i> Add to cart</div></a>
-                <a><div type="button" value="Favourite" onclick="addToFavourite()" id="fav" class="favourite"><i class="bi bi-star-fill"></i> Favourite</div></a>
+                @*<div>@userId</div>
+                <div>@Model.UserDishes.First().DishId</div>*@
+                @if (Model.UserDishes.Any(x => x.DishId == Model.Id && x.ApplicationUserId == userId && x.IsDeleted == false))
+                {
+                    <a><div type="button" value="Favourite" onclick="addToFavourite()" class="favourite"><i class="bi bi-star-fill"></i><span id="fav"> Added to favourites</span></div></a>
+                }
+                else
+                {
+                    <a><div type="button" value="Favourite" onclick="addToFavourite()" class="favourite"><i class="bi bi-star-fill"></i><span id="fav"> Favourite</span></div></a>
+                }
                 <a><div type="button" value="Like" class="like"><i class="bi bi-heart-fill"></i>  Like</div></a>
             </disv>
+        </div>
     </div>
-</div>
 
-@section Scripts {
- <script>
+    @section Scripts {
+        <script>
      function addToFavourite() {
          const dishId = @Model.Id;
          var data = { dishId: dishId };
-         $.ajax({
-             type: "POST",
-             url: "/api/Favourite",
-             data: JSON.stringify(data),
-             //headers: {
-             //    'X-CSRF-TOKEN': antiForgeryToken
-             //},
-             success: function (data) {
-                 var favourite = document.getElementById('fav');
-                 favourite.innerHTML = "added to favourite";
-                 console.log(data);
-             },
-             contentType: 'application/json',
-         });
-         
+         var favourite = $('#fav').html();
+         if (favourite === ' Favourite') {
+             $.ajax({
+                 type: "POST",
+                 url: "/api/Favourite",
+                 data: JSON.stringify(data),
+                 //headers: {
+                 //    'X-CSRF-TOKEN': antiForgeryToken
+                 //},
+                 success: function (data) {
+                     $('#fav').text(' Added to favourites');
+                     console.log(data);
+                 },
+                 contentType: 'application/json',
+             });
+         } else {
+             $.ajax({
+                 type: "DELETE",
+                 url: "/api/Favourite",
+                 data: JSON.stringify(data),
+                 //headers: {
+                 //    'X-CSRF-TOKEN': antiForgeryToken
+                 //},
+                 success: function (data) {
+                     $('#fav').text(' Favourite');
+                     console.log(data);
+                 },
+                 contentType: 'application/json',
+             });
+         }
+
+
      }
- </script>
-}
+        </script>
+    }
 
 

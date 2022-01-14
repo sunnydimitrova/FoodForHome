@@ -13,6 +13,8 @@ namespace FoodForHome.Web.ViewModels.Dishes
 
         public int Id { get; set; }
 
+        public string UserId { get; set; }
+
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }
@@ -25,11 +27,15 @@ namespace FoodForHome.Web.ViewModels.Dishes
 
         public decimal Price { get; set; }
 
+        public IEnumerable<UserDishesViewModel> UserDishes { get; set; }
+
         public IEnumerable<IngredientViewModel> Ingredients { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Dish, SingleDishViewModel>()
+                .ForMember(x => x.UserDishes, opt =>
+                opt.MapFrom(x => x.Users))
                 .ForMember(x => x.ImageUrl, opt =>
                     opt.MapFrom(x =>
                         x.Images.FirstOrDefault().Url != null ?
