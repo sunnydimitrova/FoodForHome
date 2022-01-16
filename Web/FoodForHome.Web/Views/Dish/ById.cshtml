@@ -18,7 +18,7 @@
             {
                 <div class="edit-delete-buttons">
                     <button type="button" class="btn-edit"><a asp-action="Edit" asp-route-id="@this.Model.Id">Edit dish</a></button>
-                    <button type="button" class="btn-delete"><a asp-action="Delete" asp-route-id="@this.Model.Id">Delete dish</a></button>
+                    <button type="button" class="btn-delete"><a asp-controller="Dish" asp-action="Delete" asp-route-id="@this.Model.Id">Delete dish</a></button>
                 </div>
             }
             <h2 class="dish-name">@this.Model.Name</h2>

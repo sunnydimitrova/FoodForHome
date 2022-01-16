@@ -39,7 +39,6 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Create(CreateDishInputModel input)
         {
-
             if (!this.ModelState.IsValid)
             {
                 input.Categories = this.categoriesService.GetCategories();
@@ -52,7 +51,6 @@
             }
             catch (Exception ex)
             {
-
                 this.ModelState.AddModelError(string.Empty, ex.Message);
                 input.Categories = this.categoriesService.GetCategories();
                 return this.View(input);
@@ -61,6 +59,23 @@
             this.TempData["Message"] = "Dish added successfully";
 
             return this.Redirect("/");
+        }
+
+        public IActionResult Categories()
+        {
+            var viewModel = new CategoriesViewModel
+            {
+                Categories = this.categoriesService.GetAll<CategoryViewModel>(),
+            };
+
+            return View(viewModel);
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.dishService.DeleteDishAsync(id);
+            return RedirectToAction("Categories");
         }
 
         public IActionResult ById(int id)

@@ -107,5 +107,13 @@
 
             return dish;
         }
+
+        public async Task DeleteDishAsync(int dishId)
+        {
+            var dish = this.dishRepository.AllAsNoTracking()
+                .Where(x => x.Id == dishId).FirstOrDefault();
+            this.dishRepository.Delete(dish);
+            await this.dishRepository.SaveChangesAsync();
+        }
     }
 }

@@ -21,7 +21,7 @@
             <td>@item.Dish.Name  - @item.Dish.Gram grams</td>
             <td>@item.Dish.Price</td>
             <td>@item.Quantity</td>
-            <td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Dish.Id">Remove</a></td>
+            <td><a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Dish.Id">Remove</a></td>
             <td>@(item.Dish.Price * item.Quantity)</td>
         </tr>
         }
@@ -34,4 +34,4 @@
         </td>
     </tr>
 </table>
-<a asp-controller="Menu" asp-action="Categories">Continue Shopping</a>
+<a asp-controller="Dish" asp-action="Categories">Continue Shopping</a>

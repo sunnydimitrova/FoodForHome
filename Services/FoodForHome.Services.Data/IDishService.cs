@@ -16,5 +16,6 @@ namespace FoodForHome.Services.Data
 
         T GetById<T>(int id);
 
+        Task DeleteDishAsync(int dishId);
     }
 }
