@@ -22,7 +22,7 @@ namespace FoodForHome.Web.Controllers
         {
             var viewModel = new DishesByCategoryViewModel
             {
-                Dishes = this.dishService.GetByCategoryId<DishInMenuViewModel>(12),
+                Dishes = this.dishService.GetByCategoryName<DishInMenuViewModel>("Lunch menu"),
             };
             return this.View(viewModel);
         }

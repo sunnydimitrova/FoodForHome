@@ -6,8 +6,12 @@ using System.Text;
 
 namespace FoodForHome.Web.ViewModels.Dishes
 {
-    public class IngredientViewModel : IMapFrom<Ingredient>
+    public class IngredientViewModel : IMapFrom<DishIngredient>
     {
-        public string Name { get; set; }
+        public int IngredientId { get; set; }
+
+        public string IngredientName { get; set; }
+
+        public int DishId { get; set; }
     }
 }

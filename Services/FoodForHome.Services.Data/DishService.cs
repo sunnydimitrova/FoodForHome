@@ -18,15 +18,11 @@
         private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<Dish> dishRepository;
         private readonly IDeletableEntityRepository<Ingredient> ingredientRepository;
-        private readonly IRepository<Image> imagesRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
-        public DishService(IDeletableEntityRepository<Dish> dishRepository, IDeletableEntityRepository<Ingredient> ingredientRepository, IRepository<Image> imagesRepository, IDeletableEntityRepository<ApplicationUser> userRepository)
+        public DishService(IDeletableEntityRepository<Dish> dishRepository, IDeletableEntityRepository<Ingredient> ingredientRepository)
         {
             this.dishRepository = dishRepository;
             this.ingredientRepository = ingredientRepository;
-            this.imagesRepository = imagesRepository;
-            this.userRepository = userRepository;
         }
 
         public async Task CreateAsync(CreateDishInputModel input, string imgPath)
@@ -43,38 +39,45 @@
 
             foreach (var currIngredient in input.Ingredients)
             {
-                var ingredient = this.ingredientRepository.All().FirstOrDefault(x => x.Name == currIngredient.Name);
+                var ingredient = this.ingredientRepository.All().FirstOrDefault(x => x.Name == currIngredient.IngredientName);
                 if (ingredient == null)
                 {
                     ingredient = new Ingredient
                     {
-                        Name = currIngredient.Name,
+                        Name = currIngredient.IngredientName,
                     };
                 }
 
-                dish.Ingredients.Add(ingredient);
+                dish.Ingredients.Add(new DishIngredient { Ingredient = ingredient, Dish = dish });
             }
 
-            Directory.CreateDirectory($"{imgPath}/dishes/");
-            foreach (var image in input.Images)
+            if (input.Images.Count() == 0)
             {
-                var extention = Path.GetExtension(image.FileName).TrimStart('.');
-                if (!this.allowedExtensions.Any(x => extention.EndsWith(x)))
+                dish.Images.FirstOrDefault().Url = input.ImageUrl;
+            }
+            else
+            {
+                Directory.CreateDirectory($"{imgPath}/dishes/");
+                foreach (var image in input.Images)
                 {
-                    throw new Exception($"Invalid image extention {extention}");
+                    var extention = Path.GetExtension(image.FileName).TrimStart('.');
+                    if (!this.allowedExtensions.Any(x => extention.EndsWith(x)))
+                    {
+                        throw new Exception($"Invalid image extention {extention}");
+                    }
+
+                    var dbImage = new Image
+                    {
+                        Extention = extention,
+                        Url = input.ImageUrl,
+                    };
+
+                    dish.Images.Add(dbImage);
+
+                    var path = $"{imgPath}/dishes/{dbImage.Id}.{extention}";
+                    using Stream fileStream = new FileStream(path, FileMode.Create);
+                    await image.CopyToAsync(fileStream);
                 }
-
-                var dbImage = new Image
-                {
-                    Extention = extention,
-                    Url = input.ImageUrl,
-                };
-
-                dish.Images.Add(dbImage);
-
-                var path = $"{imgPath}/dishes/{dbImage.Id}.{extention}";
-                using Stream fileStream = new FileStream(path, FileMode.Create);
-                await image.CopyToAsync(fileStream);
             }
 
             await this.dishRepository.AddAsync(dish);
@@ -94,6 +97,15 @@
         {
             var dishes = this.dishRepository.AllAsNoTracking()
                 .Where(x => x.CategoryId == id)
+                .To<T>().ToList();
+
+            return dishes;
+        }
+
+        public IEnumerable<T> GetByCategoryName<T>(string name)
+        {
+            var dishes = this.dishRepository.AllAsNoTracking()
+                .Where(x => x.Category.Name == name)
                 .To<T>().ToList();
 
             return dishes;

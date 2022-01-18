@@ -7,8 +7,9 @@ namespace FoodForHome.Web.ViewModels.Dishes
 {
     public class IngredientInputModel
     {
+
         [Required]
         [MinLength(3)]
-        public string Name { get; set; }
+        public string IngredientName { get; set; }
     }
 }

@@ -27,7 +27,7 @@
             <div class="ingredients-container">
                 @foreach (var ingredient in this.Model.Ingredients)
                 {
-                    <p class="ingredient-name">@ingredient.Name</p>
+                    <p class="ingredient-name">@ingredient.IngredientName</p>
                 }
             </div>
             <div class="category"><a asp-action="ByCategory" asp-route-id="@this.Model.CategoryId">@this.Model.CategoryName</a></div>

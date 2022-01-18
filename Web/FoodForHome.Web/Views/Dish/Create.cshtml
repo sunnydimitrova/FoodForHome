@@ -22,7 +22,7 @@
         <div class="input-group-prepend">
             <label asp-for="Ingredients" class="input-group-text" id="more-ingredients" onclick="AddMoreIngredients()">Ingredients</label>
         </div>
-        <input type="text" name="Ingredients[0].Name" class="form-control">
+        <input type="text" name="Ingredients[0].IngredientName" class="form-control">
         <span asp-validation-for="Ingredients" class="text-danger"></span>
     </div>
     <div class="col-12 img-url">
@@ -55,7 +55,7 @@
         var ingredientIndex = 1;
         function AddMoreIngredients() {
             $("#ingredients").
-                append("<input type='text' name='Ingredients["+ ingredientIndex +"].Name' class='form-control'>");
+                append("<input type='text' name='Ingredients[" + ingredientIndex +"].IngredientName' class='form-control'>");
             ingredientIndex++;
         }
     </script>

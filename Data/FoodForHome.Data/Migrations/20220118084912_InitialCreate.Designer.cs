@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodForHome.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220113182635_ApplicationUserDish")]
-    partial class ApplicationUserDish
+    [Migration("20220118084912_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,21 +34,6 @@ namespace FoodForHome.Data.Migrations
                     b.HasIndex("UsersId");
 
                     b.ToTable("ApplicationUserIngredient");
-                });
-
-            modelBuilder.Entity("DishIngredient", b =>
-                {
-                    b.Property<int>("DishesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IngredientsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DishesId", "IngredientsId");
-
-                    b.HasIndex("IngredientsId");
-
-                    b.ToTable("DishIngredient");
                 });
 
             modelBuilder.Entity("FoodForHome.Data.Models.ApplicationRole", b =>
@@ -184,14 +169,28 @@ namespace FoodForHome.Data.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("DishId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("DishId");
+
+                    b.HasIndex("IsDeleted");
 
                     b.ToTable("ApplicationUserDishes");
                 });
@@ -270,6 +269,42 @@ namespace FoodForHome.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Dishes");
+                });
+
+            modelBuilder.Entity("FoodForHome.Data.Models.DishIngredient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DishId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DishId");
+
+                    b.HasIndex("IngredientId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("DishIngredients");
                 });
 
             modelBuilder.Entity("FoodForHome.Data.Models.Image", b =>
@@ -558,21 +593,6 @@ namespace FoodForHome.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DishIngredient", b =>
-                {
-                    b.HasOne("FoodForHome.Data.Models.Dish", null)
-                        .WithMany()
-                        .HasForeignKey("DishesId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("FoodForHome.Data.Models.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientsId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("FoodForHome.Data.Models.ApplicationUserDish", b =>
                 {
                     b.HasOne("FoodForHome.Data.Models.ApplicationUser", "ApplicationUser")
@@ -599,6 +619,25 @@ namespace FoodForHome.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("FoodForHome.Data.Models.DishIngredient", b =>
+                {
+                    b.HasOne("FoodForHome.Data.Models.Dish", "Dish")
+                        .WithMany("Ingredients")
+                        .HasForeignKey("DishId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FoodForHome.Data.Models.Ingredient", "Ingredient")
+                        .WithMany("Dishes")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Dish");
+
+                    b.Navigation("Ingredient");
                 });
 
             modelBuilder.Entity("FoodForHome.Data.Models.Image", b =>
@@ -719,7 +758,14 @@ namespace FoodForHome.Data.Migrations
                 {
                     b.Navigation("Images");
 
+                    b.Navigation("Ingredients");
+
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("FoodForHome.Data.Models.Ingredient", b =>
+                {
+                    b.Navigation("Dishes");
                 });
 
             modelBuilder.Entity("FoodForHome.Data.Models.Order", b =>

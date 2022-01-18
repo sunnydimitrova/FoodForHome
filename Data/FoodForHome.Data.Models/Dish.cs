@@ -11,7 +11,7 @@ namespace FoodForHome.Data.Models
     {
         public Dish()
         {
-            this.Ingredients = new HashSet<Ingredient>();
+            this.Ingredients = new HashSet<DishIngredient>();
             this.Images = new HashSet<Image>();
             this.Users = new HashSet<ApplicationUserDish>();
         }
@@ -28,7 +28,7 @@ namespace FoodForHome.Data.Models
 
         public Category Category { get; set; }
 
-        public virtual ICollection<Ingredient> Ingredients { get; set; }
+        public virtual ICollection<DishIngredient> Ingredients { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
 
