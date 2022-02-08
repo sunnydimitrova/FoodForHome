@@ -24,6 +24,7 @@
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult Index()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -35,20 +36,24 @@
             return View(cart);
         }
 
+        //[Authorize]
+        //[HttpPost]
+        //public async Task<IActionResult> Buy(int id)
+        //{
+        //    var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        //    var orderDetails = new OrderDetailsViewModel
+        //    {
+        //        Dish = this.dishService.GetById<SingleDishViewModel>(id),
+        //        Quantity = 1,
+        //    };
+        //    await this.orderDetailsService.CreateAsync(orderDetails, userId);
+
+        //    //return RedirectToAction("Index");
+        //    return Ok("Add Successfuly!");
+        //}
+
         [Authorize]
-        public async Task<IActionResult> Buy(int id)
-        {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var orderDetails = new OrderDetailsViewModel
-            {
-                Dish = this.dishService.GetById<SingleDishViewModel>(id),
-                Quantity = 1,
-            };
-            await this.orderDetailsService.CreateAsync(orderDetails, userId);
-
-            return RedirectToAction("Index");
-        }
-
+        [HttpPost]
         public async Task<IActionResult> Remove(int id)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;

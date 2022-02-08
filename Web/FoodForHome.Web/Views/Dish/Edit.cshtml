@@ -1,0 +1,36 @@
+﻿@model FoodForHome.Web.ViewModels.Dishes.EditDishInputModle
+@{
+    ViewData["Title"] = "Edit dish";
+    var counter = 0;
+}
+
+<link href="~/css/dishPage.css" rel="stylesheet" />
+
+<h2>@ViewData["Title"]</h2>
+<form method="post" class="row g-3 box-shadow" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger col-12"></div>
+    <div class="col-md-6">
+        <label asp-for="Name" class="form-label">Dish Name<span class="text-danger">*</span></label>
+        <input asp-for="Name" class="form-control" id="dishName">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Gram" class="form-label">Gram<span class="text-danger">*</span></label>
+        <input asp-for="Gram" class="form-control" id="gram">
+        <span asp-validation-for="Gram" class="text-danger"></span>
+    </div>
+    <div class="col-md-3">
+        <label asp-for="CategoryId" class="form-label">Category<span class="text-danger">*</span></label>
+        <select asp-for="CategoryId" asp-items="Model.Categories" id="caregory" class="form-select">
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label asp-for="Price" class="form-label">Price<span class="text-danger">*</span></label>
+        <input type="number" asp-for="Price" class="form-control" id="price">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="Id" />
+    <div class="col-12">
+        <input type="submit" class="btn btn-primary button" value="Save changes"/>
+    </div>
+</form>

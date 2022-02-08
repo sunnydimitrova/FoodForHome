@@ -2,9 +2,11 @@
 using FoodForHome.Web.ViewModels.Favourite;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -22,14 +24,13 @@ namespace FoodForHome.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public ActionResult GetResult()
         {
-            return Ok("Api controller");
+            return Ok();
         }
 
         [Authorize]
         [HttpPost]
-        [IgnoreAntiforgeryToken]
         public async Task<ActionResult<ResponceFavouriteModel>> Post(InputFavouriteModel input)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -39,7 +40,6 @@ namespace FoodForHome.Web.Controllers
 
         [Authorize]
         [HttpDelete]
-        [IgnoreAntiforgeryToken]
         public async Task<ActionResult<ResponceFavouriteModel>> Delete(InputFavouriteModel input)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;

@@ -46,6 +46,20 @@ namespace FoodForHome.Services.Data
             await this.orderDetailRepository.SaveChangesAsync();
         }
 
+        public int OrderDetailsCount(string userId)
+        {
+            var dishes = this.orderDetailRepository.AllAsNoTracking()
+                .Where(x => x.UserId == userId && x.Dish.IsDeleted == false)
+                .ToList();
+            var count = 0;
+            foreach (var item in dishes)
+            {
+                count += item.Quantity;
+            }
+
+            return count;
+        }
+
         public async Task DeleteAsync(int dishId, string userId)
         {
             var deleteDish = this.orderDetailRepository.AllAsNoTracking()

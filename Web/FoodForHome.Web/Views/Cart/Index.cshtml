@@ -21,12 +21,18 @@
             <td>@item.Dish.Name  - @item.Dish.Gram grams</td>
             <td>@item.Dish.Price</td>
             <td>@item.Quantity</td>
-            <td><a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Dish.Id">Remove</a></td>
+            <td>
+                <form method="post" asp-action="Remove" asp-route-id="@item.Dish.Id" data-ajax="true" data-ajax-success="deleteItem(this)">
+                    <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block">
+                        Delete
+                    </button>
+                </form>
+            </td>
             <td>@(item.Dish.Price * item.Quantity)</td>
         </tr>
         }
     </tbody>
-   
+
     <tr>
         <td class="font-weight-bold" align="right" colspan="6">Total price: </td>
         <td class="font-weight-bold">
@@ -35,3 +41,30 @@
     </tr>
 </table>
 <a asp-controller="Dish" asp-action="Categories">Continue Shopping</a>
+<form method="post" id="antiForgeryForm"></form>
+
+@section Scripts {
+    <script>
+     //function remove(id) {
+     //    const dishId = id;
+     //    var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
+     //    var data = { dishId: dishId };
+     //        $.ajax({
+     //            type: "DELETE",
+     //            url: "/api/Order",
+     //            data: JSON.stringify(data),
+     //            headers: {
+     //                'X-CSRF-TOKEN': antiForgeryToken
+     //            },
+     //            success: function (data) {
+     //                console.log(data);
+     //            },
+     //            contentType: 'application/json',
+     //        });
+     //    }
+
+        function deleteItem(form) {
+            $(form).parents('td').remove();
+        }
+    </script>
+}

@@ -81,7 +81,12 @@
         public IActionResult ById(int id)
         {
             var item = this.dishService.GetById<SingleDishViewModel>(id);
-            return View(item);
+            var viewModel = new OrderDetailsViewModel
+            {
+                Dish = item,
+                Quantity = 1,
+            };
+            return View(viewModel);
         }
 
         public IActionResult ByCategory(int id)

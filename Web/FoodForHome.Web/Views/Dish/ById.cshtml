@@ -1,14 +1,21 @@
-﻿@model FoodForHome.Web.ViewModels.Dishes.SingleDishViewModel
+﻿@model FoodForHome.Web.ViewModels.Orders.OrderDetailsViewModel
 @using System.Security.Claims;
     @using FoodForHome.Common
     @{
-        this.ViewData["Title"] = this.Model.CategoryName + " " + this.Model.Name;
-        var dishImg = this.Model.ImageUrl;
+        this.ViewData["Title"] = this.Model.Dish.CategoryName + " " + this.Model.Dish.Name;
+        var dishImg = this.Model.Dish.ImageUrl;
         var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
     <link href="~/css/byId.css" rel="stylesheet" />
 
+
+    <div id="alert-success" class="alert alert-success" role="alert">
+        Added successfuly!
+    </div>
+    <div id="alert-error" class="alert alert-danger" role="alert">
+        Quantity must be a number between 1 and 100.
+    </div>
     <div class="content-container">
         <div class="img-container">
             <img class="rounded" src="@dishImg" alt="...">
@@ -17,29 +24,30 @@
             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 <div class="edit-delete-buttons">
-                    <button type="button" class="btn-edit"><a asp-action="Edit" asp-route-id="@this.Model.Id">Edit dish</a></button>
-                    <button type="button" class="btn-delete"><a asp-controller="Dish" asp-action="Delete" asp-route-id="@this.Model.Id">Delete dish</a></button>
+                    <button type="button" class="btn-edit"><a asp-action="Edit" asp-route-id="@this.Model.Dish.Id">Edit dish</a></button>
+                    <button type="button" class="btn-delete"><a asp-controller="Dish" asp-action="Delete" asp-route-id="@this.Model.Dish.Id">Delete dish</a></button>
                 </div>
             }
-            <h2 class="dish-name">@this.Model.Name</h2>
-            <p class="dish-gram">@this.Model.Gram grams</p>
+            <h2 class="dish-name">@this.Model.Dish.Name</h2>
+            <p class="dish-gram">@this.Model.Dish.Gram grams</p>
             <h5 class="ingredients">Ingredients:</h5>
             <div class="ingredients-container">
-                @foreach (var ingredient in this.Model.Ingredients)
+                @foreach (var ingredient in this.Model.Dish.Ingredients)
                 {
                     <p class="ingredient-name">@ingredient.IngredientName</p>
                 }
             </div>
-            <div class="category"><a asp-action="ByCategory" asp-route-id="@this.Model.CategoryId">@this.Model.CategoryName</a></div>
+            <div class="category"><a asp-action="ByCategory" asp-route-id="@this.Model.Dish.CategoryId">@this.Model.Dish.CategoryName</a></div>
             <div class="price-container">
                 <p class="price">Price:</p>
-                <p class="price-number">@this.Model.Price BGN</p>
+                <p class="price-number">@this.Model.Dish.Price BGN</p>
             </div>
             <disv class="buttons-container">
-                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@this.Model.Id"><div class="add-to-cart"><i class="bi bi-cart-check-fill"></i> Add to cart</div></a>
-                @*<div>@userId</div>
-                <div>@Model.UserDishes.First().DishId</div>*@
-                @if (Model.UserDishes.Any(x => x.DishId == Model.Id && x.ApplicationUserId == userId && x.IsDeleted == false))
+                <form method="post">
+                    <input id="quantity" asp-for="Quantity" type="number" class="form-control" />
+                </form>
+                <a onclick="addToCart()"><div type="submit" class="add-to-cart"><i class="bi bi-cart-check-fill"></i> Add to cart</div></a>
+                @if (Model.Dish.UserDishes.Any(x => x.DishId == Model.Dish.Id && x.ApplicationUserId == userId && x.IsDeleted == false))
                 {
                     <a><div type="button" value="Favourite" onclick="addToFavourite()" class="favourite"><i class="bi bi-star-fill"></i><span id="fav"> Added to favourites</span></div></a>
                 }
@@ -51,11 +59,13 @@
             </disv>
         </div>
     </div>
+    <form method="post" id="antiForgeryForm"></form>
 
     @section Scripts {
         <script>
      function addToFavourite() {
-         const dishId = @Model.Id;
+         const dishId = @Model.Dish.Id;
+         var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
          var data = { dishId: dishId };
          var favourite = $('#fav').html();
          if (favourite === ' Favourite') {
@@ -63,9 +73,9 @@
                  type: "POST",
                  url: "/api/Favourite",
                  data: JSON.stringify(data),
-                 //headers: {
-                 //    'X-CSRF-TOKEN': antiForgeryToken
-                 //},
+                 headers: {
+                     'X-CSRF-TOKEN': antiForgeryToken
+                 },
                  success: function (data) {
                      $('#fav').text(' Added to favourites');
                      console.log(data);
@@ -77,9 +87,9 @@
                  type: "DELETE",
                  url: "/api/Favourite",
                  data: JSON.stringify(data),
-                 //headers: {
-                 //    'X-CSRF-TOKEN': antiForgeryToken
-                 //},
+                 headers: {
+                     'X-CSRF-TOKEN': antiForgeryToken
+                 },
                  success: function (data) {
                      $('#fav').text(' Favourite');
                      console.log(data);
@@ -89,7 +99,32 @@
          }
 
 
-     }
+            }
+
+            function addToCart() {
+                const dishId = @Model.Dish.Id;
+                const quantity = $('#quantity').val();
+                var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
+                var data = { dishId: dishId, quantity: Number(quantity) };
+                $.ajax({
+                    type: "POST",
+                    url: "/api/Order",
+                    data: JSON.stringify(data),
+                    headers: {
+                        'X-CSRF-TOKEN': antiForgeryToken
+                    },
+                    success: function (data) {
+                        $('#alert-error').css("display", "none");
+                        $('#alert-success').show();
+                        $('#cart').text(data.count);
+                    },
+                    error: function (data) {
+                        $('#alert-success').css("display", "none");
+                        $('#alert-error').show();
+                    },
+                    contentType: 'application/json',
+                });
+            }
         </script>
     }
 

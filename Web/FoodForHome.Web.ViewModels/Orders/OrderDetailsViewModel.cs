@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using FoodForHome.Data.Models;
@@ -12,6 +13,7 @@
     {
         public SingleDishViewModel Dish { get; set; }
 
+        [Range(1, 100)]
         public int Quantity { get; set; }
     }
 }
