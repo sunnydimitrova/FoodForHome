@@ -27,6 +27,15 @@ namespace FoodForHome.Web.Controllers
         }
 
         [Authorize]
+        public ActionResult<OrderDetailsCountModel> CartCount()
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var dishCount = this.orderDetailsService.OrderDetailsCount(userId);
+
+            return new OrderDetailsCountModel { Count = dishCount };
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<OrderDetailsCountModel>> Buy(InputOrderDetailModel input)
         {
@@ -39,18 +48,7 @@ namespace FoodForHome.Web.Controllers
             await this.orderDetailsService.CreateAsync(orderDetails, userId);
             var dishCount = this.orderDetailsService.OrderDetailsCount(userId);
 
-            //return RedirectToAction("Index");
             return new OrderDetailsCountModel { Count = dishCount };
         }
-
-        //[Authorize]
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Remove(int id)
-        //{
-        //    var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //    await this.orderDetailsService.DeleteAsync(id, userId);
-        //    return NoContent();
-        //    //return RedirectToAction("Index");
-        //}
     }
 }

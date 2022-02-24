@@ -1,6 +1,7 @@
 ﻿using FoodForHome.Data.Common.Repositories;
 using FoodForHome.Data.Models;
 using FoodForHome.Services.Mapping;
+using FoodForHome.Web.ViewModels.Dishes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,25 @@ namespace FoodForHome.Services.Data
 
             this.userDishRepository.Delete(userDish);
             await this.userRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetUserFavouriteDishes<T>(string userId)
+        {
+            var dishes = this.userDishRepository.All()
+                .Where(x => x.ApplicationUserId == userId)
+                .Select(x => new Dish
+                {
+                    Id = x.DishId,
+                    Name = x.Dish.Name,
+                    CategoryId = x.Dish.CategoryId,
+                    Category = x.Dish.Category,
+                    Images = x.Dish.Images,
+                    Gram = x.Dish.Gram,
+                    Price = x.Dish.Price,
+                })
+                .To<T>()
+                .ToList();
+            return dishes;
         }
     }
 }

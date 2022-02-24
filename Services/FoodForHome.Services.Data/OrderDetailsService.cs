@@ -26,7 +26,7 @@ namespace FoodForHome.Services.Data
                 .FirstOrDefault(x => x.Dish.Id == input.Dish.Id && x.UserId == userId);
             if (orderDetail != null)
             {
-                orderDetail.Quantity = orderDetail.Quantity + 1;
+                orderDetail.Quantity = orderDetail.Quantity + input.Quantity;
 
                 this.orderDetailRepository.Update(orderDetail);
             }

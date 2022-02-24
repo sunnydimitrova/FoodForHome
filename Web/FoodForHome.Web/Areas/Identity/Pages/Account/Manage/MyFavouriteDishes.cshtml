@@ -1,0 +1,32 @@
+﻿@page
+@model FoodForHome.Web.Areas.Identity.Pages.Account.Manage.MyFavouriteDishesModel
+@{
+    ViewData["Title"] = "Favourites";
+    ViewData["ActivePage"] = ManageNavPages.FavouriteDishes;
+}
+<link href="~/css/bycategory.css" rel="stylesheet" />
+<h4>@ViewData["Title"]</h4>
+<div class="content-container">
+    @if (!this.Model.Dishes.Any())
+    {
+        <p>The current category is empty for now!</p>
+    }
+    else
+    {
+        @foreach (var dish in this.Model.Dishes)
+        {
+            <a class="style-none"asp-controller="Dish" asp-action="ById" asp-route-id="@dish.Id">
+                <div class="card-container">
+                    <div class="container-img">
+                        <img src="@dish.ImageUrl" class="dish-img" alt="...">
+                    </div>
+                    <div class="dish-card-body">
+                        <h5 class="dish-title">@dish.Name</h5>
+                        <p class="dish-price">@dish.Price BGN</p>
+                        <p class="dish-gram">@dish.Gram grams</p>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+</div>
